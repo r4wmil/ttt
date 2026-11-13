@@ -15,14 +15,25 @@ void field_draw() {
 	printf("  %c | %c | %c\n", f[6], f[7], f[8]);
 }
 
+int get_input() {
+	char c, f;
+	f = getc(stdin);
+	int i = 0;
+	while (1) {
+		c = getc(stdin);
+		if (c == '\n') break;
+		i++;
+	}
+	if (i != 0) return -1;
+	if (f < '0' || f > '9') return -1;
+	return f - '0';
+}
+
 int main() {
 	field_init();
 	while (1) {
-		char c;
-		while (1) {
-			c = getc(stdin);
-			if (c == '\n') break;
-		}
+		int i = get_input();
+		printf("%d\n", i);
 		field_draw();
 	}
 	return 0;
