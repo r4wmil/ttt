@@ -39,22 +39,57 @@ void field_draw(int mode) {
 	printf("\n");
 }
 
+int get_input() {
+	char c, f;
+	f = getc(stdin);
+	int i = 0;
+	while (1) {
+		c = getc(stdin);
+		if (c == '\n') break;
+		i++;
+	}
+	if (i != 0) return -1;
+	if (f < '0' || f > '9') return -1;
+	return f - '0';
+}
+
+bool place_sym(bool is_o, int i, int j) {
+	char s = is_o ? 'o' : 'x';
+	if (sfield[i][j] == 'o' || sfield[i][j] == 'x') {
+		return 0;
+	}
+	sfield[i][j] = s;
+	return 1;
+}
 
 int main() {
 	field_init();
-	sfield[1][2] = 'x';
-	field_draw(-2);
 	field_draw(-1);
-	field_draw(0);
-	field_draw(1);
-	field_draw(2);
-	field_draw(3);
-	field_draw(4);
-	field_draw(5);
-	field_draw(6);
-	field_draw(7);
-	field_draw(8);
+	int mode = -1;
+	bool is_o = 0;
 	while (1) {
+		if (mode == -1) {
+			printf("Choose field: ");
+			int i = get_input();
+			if (i == -1) {
+				printf("Error. Input: 0-9\n");
+				continue;
+			}
+			mode = i;
+			field_draw(mode);
+		}
+		printf("Choose field cell: ");
+		int i = get_input();
+		if (i == -1) {
+			printf("Error. Input: 0-9\n");
+			continue;
+		}
+		if (!place_sym(is_o, mode, i)) {
+			printf("Error. Illegal move\n");
+			continue;
+		}
+		field_draw(mode);
+		is_o = !is_o;
 		break;
 	}
 	return 0;
