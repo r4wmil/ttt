@@ -68,9 +68,10 @@ int main() {
 	int mode = -1;
 	bool is_o = 0;
 	while (1) {
+		int i;
 		if (mode == -1) {
 			printf("Choose field: ");
-			int i = get_input();
+			i = get_input();
 			if (i == -1) {
 				printf("Error. Input: 0-9\n");
 				continue;
@@ -79,7 +80,7 @@ int main() {
 			field_draw(mode);
 		}
 		printf("Choose field cell: ");
-		int i = get_input();
+		i = get_input();
 		if (i == -1) {
 			printf("Error. Input: 0-9\n");
 			continue;
@@ -88,9 +89,9 @@ int main() {
 			printf("Error. Illegal move\n");
 			continue;
 		}
+		mode = i;
 		field_draw(mode);
 		is_o = !is_o;
-		break;
 	}
 	return 0;
 }
