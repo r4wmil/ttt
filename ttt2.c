@@ -89,7 +89,7 @@ int main() {
 	while (1) {
 		int i;
 		if (mode == -1 || is_xo(wins[mode])) {
-			printf("Choose field: ");
+			printf("%c turn. Field: ", is_o ? 'O' : 'X');
 			i = get_input();
 			if (i == -1) {
 				printf("Error. Input: 1-9\n");
@@ -102,7 +102,7 @@ int main() {
 			mode = i;
 			field_draw(mode);
 		}
-		printf("Choose field cell: ");
+		printf("%c turn: ", is_o ? 'O' : 'X');
 		i = get_input();
 		if (i == -1) {
 			printf("Error. Input: 1-9\n");
