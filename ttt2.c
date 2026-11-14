@@ -133,7 +133,18 @@ int main() {
 		if (wins[mode] == 'x' || wins[mode] == 'o')
 			mode = -1;
 		field_draw(mode);
+		w = check_win(wins);
+		if (w == 'x' || w == 'o') { break; }
 		is_o = !is_o;
+	}
+	if (w == 'n') {
+		printf(" -> Draw.\n");
+	}
+	if (w == 'x') {
+		printf(" -> X won.\n");
+	}
+	if (w == 'o') {
+		printf(" -> O won.\n");
 	}
 	return 0;
 }
