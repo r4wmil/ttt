@@ -3,7 +3,7 @@
 char field[9];
 
 void field_init() {
-	for (int i = 0; i < 9; i++) { field[i] = '0' + i; }
+	for (int i = 0; i < 9; i++) { field[i] = '1' + i; }
 }
 
 void field_draw() {
@@ -26,8 +26,8 @@ int get_input() {
 		i++;
 	}
 	if (i != 0) return -1;
-	if (f < '0' || f > '9') return -1;
-	return f - '0';
+	if (f < '1' || f > '9') return -1;
+	return f - '1';
 }
 
 bool place_sym(bool is_o, int i) {
