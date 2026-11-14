@@ -17,7 +17,7 @@ void field_draw(int mode) {
 			if (mode != -1) {
 				printf("------+-------+------\n");
 			} else {
-				printf("-<%d>--+-<%d>---+-<%d>--\n", y + 0, y + 1, y + 2);
+				printf("-<%d>--+-<%d>---+-<%d>--\n", y + 1, y + 2, y + 3);
 			}
 		}
 		for (int x = 0; x < 9; x++) {
@@ -28,7 +28,7 @@ void field_draw(int mode) {
 				printf("%c ", wins[i]);
 			} else {
 				bool is_num = (c == '.' && i == mode);
-				printf("%c ", is_num ? '0' + j : c);
+				printf("%c ", is_num ? '1' + j : c);
 			}
 			if (x != 8 && x % 3 == 2) printf("| ");
 			if (x == 8) printf("\n");
@@ -47,8 +47,8 @@ int get_input() {
 		i++;
 	}
 	if (i != 0) return -1;
-	if (f < '0' || f > '9') return -1;
-	return f - '0';
+	if (f < '1' || f > '9') return -1;
+	return f - '1';
 }
 
 bool place_sym(bool is_o, int i, int j) {
@@ -92,7 +92,7 @@ int main() {
 			printf("Choose field: ");
 			i = get_input();
 			if (i == -1) {
-				printf("Error. Input: 0-9\n");
+				printf("Error. Input: 1-9\n");
 				continue;
 			}
 			if (is_xo(wins[i])) {
@@ -105,7 +105,7 @@ int main() {
 		printf("Choose field cell: ");
 		i = get_input();
 		if (i == -1) {
-			printf("Error. Input: 0-9\n");
+			printf("Error. Input: 1-9\n");
 			continue;
 		}
 		if (!place_sym(is_o, mode, i)) {
