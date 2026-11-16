@@ -24,7 +24,7 @@ void field_draw(int mode) {
 			int i = (y / 3) * 3 + (x / 3);
 			int j = (y % 3) * 3 + (x % 3);
 			char c = sfield[i][j];
-			if (is_xo(wins[i])) {
+			if (is_xo(wins[i]) || wins[i] == 'n') {
 				printf("%c ", wins[i]);
 			} else {
 				bool is_num = (c == '.' && i == mode);
@@ -75,7 +75,7 @@ char check_win(char* f) {
 		if (c1 == c2 && c2 == c3) { return c1; }
 	}
 	for (int i = 0; i < 9; i++) {
-		if (!is_xo(f[i])) return '.';
+		if (!is_xo(f[i]) && f[i] != 'n') return '.';
 	}
 	return 'n';
 }
@@ -88,14 +88,14 @@ int main() {
 	char w;
 	while (1) {
 		int i;
-		if (mode == -1 || is_xo(wins[mode])) {
+		if (mode == -1) {
 			printf("%c turn. Field: ", is_o ? 'O' : 'X');
 			i = get_input();
 			if (i == -1) {
 				printf("Error. Input: 1-9\n");
 				continue;
 			}
-			if (is_xo(wins[i])) {
+			if (is_xo(wins[i]) || wins[i] == 'n') {
 				printf("Error. Can't choose this field.\n");
 				continue;
 			}
@@ -113,15 +113,16 @@ int main() {
 			continue;
 		}
 		w = check_win(sfield[mode]);
-		if (is_xo(w)) {
-			wins[mode] = w;
-		}
+		if (is_xo(w) || w == 'n') { wins[mode] = w; }
 		mode = i;
-		if (is_xo(wins[mode])) mode = -1;
+		if (is_xo(wins[mode]) || wins[mode] == 'n') mode = -1;
 		field_draw(mode);
 		w = check_win(wins);
-		if (is_xo(w)) { break; }
+		if (is_xo(w) || w == 'n') { break; }
 		is_o = !is_o;
+		printf("%c-%c-%c\n", wins[0], wins[1], wins[2]);
+		printf("%c-%c-%c\n", wins[3], wins[4], wins[5]);
+		printf("%c-%c-%c\n", wins[6], wins[7], wins[8]);
 	}
 	switch (w) {
 		case 'n': printf(" -> Draw.\n"); break;
